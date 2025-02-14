@@ -1,4 +1,4 @@
-package tenum
+package main
 
 import (
 	"fmt"

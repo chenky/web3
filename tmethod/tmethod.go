@@ -1,4 +1,4 @@
-package tmethod
+package main
 
 import "fmt"
 
