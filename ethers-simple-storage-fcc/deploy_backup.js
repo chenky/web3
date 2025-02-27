@@ -6,19 +6,17 @@ async function main() {
   const provider = new ethers.JsonRpcProvider("http://127.0.0.1:7545"); // 使用小写的 http
 
   // 创建钱包，确保将私钥替换为您的私钥
-  //   const wallet = new ethers.Wallet(
-  //     "0x4759429218e156f47c0225b66b1f069706b4969e92214899556d141a89fc3ba3", // 用您的私钥替换
-  //     provider
-  //   );
-
-  const signer = await provider.getSigner();
+  const wallet = new ethers.Wallet(
+    "0x4759429218e156f47c0225b66b1f069706b4969e92214899556d141a89fc3ba3", // 用您的私钥替换
+    provider
+  );
 
   // 读取合约的 ABI 和字节码
   const abi = readFileSync("./SimpleStorage_sol_SimpleStorage.abi", "utf8"); // 确保文件路径正确
   const binary = readFileSync("./SimpleStorage_sol_SimpleStorage.bin", "utf8"); // 确保文件路径正确
 
   // 创建合约工厂
-  const contractFactory = new ethers.ContractFactory(abi, binary, signer);
+  const contractFactory = new ethers.ContractFactory(abi, binary, wallet);
 
   console.log("Contract is deploying...");
 
