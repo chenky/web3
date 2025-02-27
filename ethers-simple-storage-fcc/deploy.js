@@ -1,37 +1,44 @@
-// HTTP://127.0.0.1:7545
-
-import { ethers } from "ethers";
-import { readFileSync } from "node:fs";
+import { ethers } from "ethers"; // 导入 ethers 库
+import { readFileSync } from "fs"; // 导入文件系统模块
 
 async function main() {
-  const provider = new ethers.JsonRpcProvider("HTTP://127.0.0.1:7545");
+  // 创建一个连接到以太坊节点的 provider
+  const provider = new ethers.JsonRpcProvider("http://127.0.0.1:7545"); // 使用小写的 http
 
+  // 创建钱包，确保将私钥替换为您的私钥
   const wallet = new ethers.Wallet(
-    "0xb655174ae38d1cb87f9b600bd34fa29553c734050e80895e5dec3a1721afa6f4",
+    "0x4759429218e156f47c0225b66b1f069706b4969e92214899556d141a89fc3ba3", // 用您的私钥替换
     provider
   );
 
-  //   console.log("Wallet:", wallet);
+  // 读取合约的 ABI 和字节码
+  const abi = readFileSync("./SimpleStorage.abi", "utf8"); // 确保文件路径正确
+  const binary = readFileSync("./SimpleStorage.bin", "utf8"); // 确保文件路径正确
 
-  const abi = readFileSync("./SimpleStorage.abi", "utf8");
-  const binary = readFileSync("./SimpleStorage.bin", "utf8");
-
-  //   console.log(abi, binary, "abi binary");
-
+  // 创建合约工厂
   const contractFactory = new ethers.ContractFactory(abi, binary, wallet);
 
   console.log("Contract is deploying...");
+
+  // 部署合约，若有构造参数，在这里传递
   const contract = await contractFactory.deploy({
-    gasLimit: 3000000, // 设置更高的 gas 限制（默认可能太低）
+    gasLimit: 5721975, // 设置 gas 上限
+    gasPrice: 20000000000, // 设置 gas 价格
   });
-  console.log("Contract is deployed to:", contract);
+
+  // 等待合约部署完成
+  await contract.deployed();
+
+  // 输出合约地址
+  console.log("Contract is deployed to:", contract.address);
 }
 
+// 调用主函数
 main()
   .then(() => {
-    process.exit(0);
+    process.exit(0); // 成功后退出进程
   })
   .catch((error) => {
-    console.error(error);
-    process.exit(1);
+    console.error("Error:", error); // 捕获并打印错误
+    process.exit(1); // 发生错误时退出进程
   });

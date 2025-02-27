@@ -11,7 +11,7 @@
   },
   "type": "module",
   "scripts": {
-    "compile": "solc -o . --bin --abi SimpleStorage.sol --overwrite",
+    "compile": "solcjs -o . --bin --abi SimpleStorage.sol --overwrite",
     "deploy": "node deploy.js",
     "test": "node test.js"
   },
