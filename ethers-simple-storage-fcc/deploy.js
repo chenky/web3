@@ -12,8 +12,8 @@ async function main() {
   );
 
   // 读取合约的 ABI 和字节码
-  const abi = readFileSync("./SimpleStorage.abi", "utf8"); // 确保文件路径正确
-  const binary = readFileSync("./SimpleStorage.bin", "utf8"); // 确保文件路径正确
+  const abi = readFileSync("./SimpleStorage_sol_SimpleStorage.abi", "utf8"); // 确保文件路径正确
+  const binary = readFileSync("./SimpleStorage_sol_SimpleStorage.bin", "utf8"); // 确保文件路径正确
 
   // 创建合约工厂
   const contractFactory = new ethers.ContractFactory(abi, binary, wallet);
