@@ -11,7 +11,8 @@
   },
   "type": "module",
   "scripts": {
-    "compile": "solcjs -o . --bin --abi SimpleStorage.sol",
+    "compile": "solcjs --bin --abi --include-path node_modules/ --base-path . -o . SimpleStorage.sol",
+    "compile2": "solcjs --bin --abi --include-path node_modules/ --base-path . -o . Ballot.sol",
     "deploy": "node deploy.js",
     "test": "node test.js"
   },
