@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ether js</title>
+  </head>
+  <body>
+    <button onclick="connect()">connect</button>
+    <script>
+      import { ethers } from "https://cdnjs.cloudflare.com/ajax/libs/ethers/6.7.0/ethers.min.js";
+      async function connect() {
+        if (window.ethereum) {
+          console.log("Ethereum is installed");
+          await window.ethereum.request({ method: "eth_requestAccounts" });
+        } else {
+          console.log("Ethereum is not installed");
+        }
+      }
+      async function fund() {
+        if (window.ethereum) {
+          const provider = new ethers.providers.Web3Provider(window.ethereum);
+          const signer = provider.getSigner();
+          const contract = new ethers.Contract(contractAddress, abi, signer);
+          //   const wallet = await ethers.Wallet.createRandom();
+          //   const balance = await wallet.getBalance();
+          //   if (balance.lt(ethers.utils.parseEther("0.1"))) {
+          //     await wallet.sendTransaction({
+          //       to: wallet.address,
+          //       value: ethers.utils.parseEther("0.1"),
+          //     });
+          //     console.log("funded successfully");
+          //   } else {
+          //     console.log("Insufficient funds");
+          //   }
+        } else {
+        }
+      }
+    </script>
+  </body>
+</html>
